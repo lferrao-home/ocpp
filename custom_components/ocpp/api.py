@@ -553,6 +553,15 @@ class ChargePoint(cp):
 
     async def set_charge_rate(self, limit_amps: int = 32, limit_watts: int = 22000):
         """Set a charging profile with defined limit."""
+        _LOGGER.info("set_char_rate(limit_amps=%i)", limit_amps )
+        resp = await self.get_configuration(ckey.max_current)
+        if resp.isnumeric():
+            req = call.ChangeConfigurationPayload(key=ckey.max_current, value=f'{limit_amps}')
+            resp = await self.call(req)
+            if resp.status == ChargingProfileStatus.accepted:
+                return True
+            return False
+
         if prof.SMART in self._attr_supported_features:
             resp = await self.get_configuration(
                 ckey.charging_schedule_allowed_charging_rate_unit.value

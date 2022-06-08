@@ -167,3 +167,5 @@ class ConfigurationKey(str, Enum):
     charging_schedule_max_periods = "ChargingScheduleMaxPeriods"
     connector_switch_3to1_phase_supported = "ConnectorSwitch3to1PhaseSupported"
     max_charging_profiles_installed = "MaxChargingProfilesInstalled"
+    max_current = "MaxCurrent"
+    
