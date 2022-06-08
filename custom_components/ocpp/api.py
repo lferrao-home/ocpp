@@ -420,10 +420,10 @@ class ChargePoint(cp):
                 ckey.meter_value_sample_interval.value,
                 str(self.entry.data.get(CONF_METER_INTERVAL, DEFAULT_METER_INTERVAL)),
             )
-            await self.configure(
-                ckey.clock_aligned_data_interval.value,
-                str(self.entry.data.get(CONF_IDLE_INTERVAL, DEFAULT_IDLE_INTERVAL)),
-            )
+            #await self.configure(
+            #    ckey.clock_aligned_data_interval.value,
+            #    str(self.entry.data.get(CONF_IDLE_INTERVAL, DEFAULT_IDLE_INTERVAL)),
+            #)
             #            await self.configure(
             #                "StopTxnSampledData", ",".join(self.entry.data[CONF_MONITORED_VARIABLES])
             #            )
