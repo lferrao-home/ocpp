@@ -1164,7 +1164,7 @@ class ChargePoint(cp):
         self.hass.async_create_task(self.async_update_device_info(kwargs))
         self.hass.async_create_task(self.central.update(self.central.cpid))
         if self.triggered_boot_notification is False:
-            self.hass.async_create_task(self.notify_ha(f"Charger {self.id} rebooted"))
+            #self.hass.async_create_task(self.notify_ha(f"Charger {self.id} rebooted"))
             self.hass.async_create_task(self.post_connect())
         return resp
 
