@@ -481,6 +481,8 @@ class ChargePoint(cp):
         """Get supported features."""
         req = call.GetConfigurationPayload(key=[ckey.supported_feature_profiles.value])
         resp = await self.call(req)
+        resp.configuration_key = [conf for conf in resp.configuration_key if conf[om.key.value] == ckey.supported_feature_profiles.value]
+
         feature_list = (resp.configuration_key[0][om.value.value]).split(",")
         if feature_list[0] == "":
             _LOGGER.warning("No feature profiles detected, defaulting to Core")
@@ -784,9 +786,12 @@ class ChargePoint(cp):
         """Get Configuration of charger for supported keys else return None."""
         if key == "":
             req = call.GetConfigurationPayload()
+            resp = await self.call(req)
         else:
             req = call.GetConfigurationPayload(key=[key])
-        resp = await self.call(req)
+            resp = await self.call(req)
+            resp.configuration_key = [conf for conf in resp.configuration_key if conf[om.key.value] == key]
+
         if resp.configuration_key is not None:
             value = resp.configuration_key[0][om.value.value]
             _LOGGER.debug("Get Configuration for %s: %s", key, value)
@@ -811,7 +816,6 @@ class ChargePoint(cp):
 
         """
         req = call.GetConfigurationPayload(key=[key])
-
         resp = await self.call(req)
 
         if resp.unknown_key is not None:
@@ -822,12 +826,13 @@ class ChargePoint(cp):
         for key_value in resp.configuration_key:
             # If the key already has the targeted value we don't need to set
             # it.
-            if key_value[om.key.value] == key and key_value[om.value.value] == value:
-                return
+            if key_value[om.key.value] == key:
+                if key_value[om.value.value] == value:
+                    return
 
-            if key_value.get(om.readonly.name, False):
-                _LOGGER.warning("%s is a read only setting", key)
-                await self.notify_ha(f"Warning: {key} is read-only")
+                if key_value.get(om.readonly.name, False):
+                    _LOGGER.warning("%s is a read only setting", key)
+                    await self.notify_ha(f"Warning: {key} is read-only")
 
         req = call.ChangeConfigurationPayload(key=key, value=value)
 
