@@ -424,10 +424,11 @@ class ChargePoint(cp):
             #    ckey.clock_aligned_data_interval.value,
             #    str(self.entry.data.get(CONF_IDLE_INTERVAL, DEFAULT_IDLE_INTERVAL)),
             #)
-            #            await self.configure(
-            #                "StopTxnSampledData", ",".join(self.entry.data[CONF_MONITORED_VARIABLES])
-            #            )
-            #            await self.start_transaction()
+
+            #await self.configure(
+            #    "StopTxnSampledData", ",".join(self.entry.data[CONF_MONITORED_VARIABLES])
+            #)
+            #await self.start_transaction()
 
             # Register custom services with home assistant
             self.hass.services.async_register(
