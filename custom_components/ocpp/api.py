@@ -1075,7 +1075,8 @@ class ChargePoint(cp):
         if transaction_id == self.active_transaction_id and transaction_id != 0:
             transaction_matches = True
         elif transaction_id != 0:
-            _LOGGER.warning("Unknown transaction detected with id=%i", transaction_id)
+            self.active_transaction_id = transaction_id
+            _LOGGER.warning("Overriding active_transaction_id with id=%i", transaction_id)
 
         for bucket in meter_value:
             unprocessed = bucket[om.sampled_value.name]
