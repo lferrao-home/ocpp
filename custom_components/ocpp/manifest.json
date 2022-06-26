@@ -1,5 +1,5 @@
 {
-  "domain": "ocpp16",
+  "domain": "ocpp",
   "name": "Open Charge Point Protocol (OCPP)",
   "documentation": "https://github.com/lferrao-home/ocpp/blob/main/README.md",
   "iot_class": "local_push",
