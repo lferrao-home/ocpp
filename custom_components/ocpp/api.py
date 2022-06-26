@@ -670,9 +670,9 @@ class ChargePoint(cp):
             return True
         else:
             _LOGGER.warning("Failed with response: %s", resp.status)
-            await self.notify_ha(
-                f"Warning: Start transaction failed with response {resp.status}"
-            )
+            #await self.notify_ha(
+            #    f"Warning: Start transaction failed with response {resp.status}"
+            #)
             return False
 
     async def stop_transaction(self):
@@ -692,9 +692,9 @@ class ChargePoint(cp):
             return True
         else:
             _LOGGER.warning("Failed with response: %s", resp.status)
-            await self.notify_ha(
-                f"Warning: Stop transaction failed with response {resp.status}"
-            )
+            #await self.notify_ha(
+            #    f"Warning: Stop transaction failed with response {resp.status}"
+            #)
             return False
 
     async def reset(self, typ: str = ResetType.hard):
